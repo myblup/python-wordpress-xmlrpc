@@ -48,8 +48,10 @@ class WordPressBase(object):
         return data
 
     def __repr__(self):
-        return '<%s: %s>' % (self.__class__.__name__, str(self).encode('utf-8'))
+        return '<%s: %s>' % (self.__class__.__name__, self)
 
+    def __str__(self):
+        return unicode(self).encode('utf-8')
 
 class WordPressTaxonomy(WordPressBase):
     definition = {
@@ -64,7 +66,7 @@ class WordPressTaxonomy(WordPressBase):
         'object_type': 'object_type'
     }
 
-    def __str__(self):
+    def __unicode__(self):
         if hasattr(self, 'name'):
             return self.name
         return unicode('')
@@ -83,7 +85,7 @@ class WordPressTerm(WordPressBase):
         'count': IntegerFieldMap('count')
     }
 
-    def __str__(self):
+    def __unicode__(self):
         if hasattr(self, 'name'):
             return self.name
         return unicode('')
@@ -118,7 +120,7 @@ class WordPressPost(WordPressBase):
         'mime_type': 'post_mime_type',
     }
 
-    def __str__(self):
+    def __unicode__(self):
         if hasattr(self, 'title'):
             return self.title
         return unicode('')
@@ -148,7 +150,7 @@ class WordPressComment(WordPressBase):
         'author_ip': 'author_ip',
     }
 
-    def __str__(self):
+    def __unicode__(self):
         if hasattr(self, 'content'):
             return self.content
         return unicode('')
@@ -163,7 +165,7 @@ class WordPressBlog(WordPressBase):
         'is_admin': FieldMap('isAdmin', default=False),
     }
 
-    def __str__(self):
+    def __unicode__(self):
         if hasattr(self, 'name'):
             return self.name
         return unicode('')
@@ -176,7 +178,7 @@ class WordPressAuthor(WordPressBase):
         'display_name': FieldMap('display_name', default=''),
     }
 
-    def __str__(self):
+    def __unicode__(self):
         if hasattr(self, 'display_name'):
             return self.display_name
         return unicode('')
@@ -198,7 +200,7 @@ class WordPressUser(WordPressBase):
         'display_name': 'display_name',
     }
 
-    def __str__(self):
+    def __unicode__(self):
         if hasattr(self, 'nickname'):
             return self.nickname
         return unicode('')
@@ -217,7 +219,7 @@ class WordPressMedia(WordPressBase):
         'metadata': 'metadata',
     }
 
-    def __str__(self):
+    def __unicode__(self):
         if hasattr(self, 'title'):
             return self.title
         return unicode('')
@@ -231,7 +233,7 @@ class WordPressOption(WordPressBase):
         'read_only': FieldMap('readonly', default=False),
     }
 
-    def __str__(self):
+    def __unicode__(self):
         if hasattr(self, 'name') and hasattr(self, 'value'):
             return '%s="%s"' % (self.name, self.value)
         return unicode('')
@@ -254,7 +256,7 @@ class WordPressPostType(WordPressBase):
         'supports': 'supports',
     }
 
-    def __str__(self):
+    def __unicode__(self):
         if hasattr(self, 'name'):
             return self.name
         return unicode('')
