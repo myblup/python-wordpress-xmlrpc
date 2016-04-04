@@ -22,14 +22,16 @@ class Client(object):
         try:
             self.server = xmlrpc_client.ServerProxy(url, allow_none=True, transport=transport,
 		verbose=verbose)
-            self.supported_methods = self.server.mt.supportedMethods()
+            # Un-necessary HTTP request
+            # self.supported_methods = self.server.mt.supportedMethods()
         except xmlrpc_client.ProtocolError:
             e = sys.exc_info()[1]
             raise ServerConnectionError(repr(e))
 
     def call(self, method):
-        if method.method_name not in self.supported_methods:
-            raise UnsupportedXmlrpcMethodError(method.method_name)
+        # Supported method verification should be done in unit testing, not here
+        # if method.method_name not in self.supported_methods:
+        #     raise UnsupportedXmlrpcMethodError(method.method_name)
 
         server_method = getattr(self.server, method.method_name)
         args = method.get_args(self)
